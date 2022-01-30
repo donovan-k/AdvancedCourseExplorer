@@ -6,7 +6,7 @@
 | ----------- | ---------------------- |
 | TeamID      |         Team-018       |
 | TeamName    |           DEYC         |
-| Captain     |       Donovon K        |
+| Captain     |       Donovon Kitten   |
 | Captain     |  dkitten2@illinois.edu |
 | Member1     |          Eric          |
 | Member1     |  ericrc3@illinois.edu  |
