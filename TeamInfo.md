@@ -8,7 +8,7 @@
 | TeamName    |           DEYC         |
 | Captain     |       Donovon Kitten   |
 | Captain     |  dkitten2@illinois.edu |
-| Member1     |          Eric          |
+| Member1     |       Eric Canaday     |
 | Member1     |  ericrc3@illinois.edu  |
 | Member2     |       Jocelyn Xu       |
 | Member2     |   yuex7@illinois.edu   |
