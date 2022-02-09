@@ -12,7 +12,7 @@ We want to offer a service that makes it easier to find interesting courses and 
 
 
 ## Realness
-
+    Our data will come from two different sources. The first is the REST API Resources page found at https://courses.illinois.edu/cisdocs/api. This source will allow us to find information about courses at the university, specifically based on their scheduling, the requirements they meet, and the subjects. The second source is a CSV files that can be found at https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/uiuc-gpa-dataset.csv under Professor Wade Fagen-Ulmschneider's github page under datasets/gpa. We will use this file to find information about specific professors and the sections they teach. We can find average GPA's of professors by course and use these to provide recommendations to students about what professors they may want to have.
 
 ## Functionality
 
