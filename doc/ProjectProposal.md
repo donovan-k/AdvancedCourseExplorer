@@ -8,8 +8,7 @@ We want to offer a service that makes it easier to find interesting courses and 
 
 ## Usefulness
  Among all the existing websites about the courses offered at UIUC, most of the functionality of these websites would be providing information of the courses with barely any personal filter option. For example, one of the largest UIUC course information website would be the 'course explorer'. That website is like a database, it contains all the information about all the courses provided by different department, instructor, and etc. Websites like that would be complicated for students to find the information of the course they want unless they are super familiar with all the courses. 
- We want to create a program which would provide personal course suggestions based on the courses the student had taken and based on the student's personal interest fields. With the use of this new program, students would not need to go to the courses database to find the possible classes, and the students do not need to check the availability of the courses they want to take. Instead, they just need to simply input the courses they have taken and the field of the course they would like to take next, and our system will filter out all the possibilities for the student.
-
+ We want to create a program which would provide personal course suggestions based on the courses the student had taken and based on the student's personal interest fields. With the use of this new program, students would not need to go to the courses database to find the possible classes, and the students do not need to check the availability of the courses they want to take. Instead, they just need to simply input the courses they have taken, requirements for the professor or the course, and/or the field of the course they would like to take next, and our system will filter out all the possibilities for the student.
 
 ## Realness
 
@@ -21,3 +20,6 @@ We want to offer a service that makes it easier to find interesting courses and 
 
 
 ## Work Distribution
+Data input: 
+Front end: 
+Back end: 
