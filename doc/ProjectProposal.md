@@ -46,21 +46,21 @@ b.	CourseNumber INT `PRIMARY KEY`
 c.	Department VARCHAR(30)
 d.	Description VARCHAR(255)
 e.	Credits INT
-f.  PreReq VARCHAR(255)
-g.  Category VARCHAR(255)
+f.	PreReq VARCHAR(255)
+g.	Category VARCHAR(255)
 
 3.	Professor
 a.	Name VARCHAR(255)
 b.	Department VARCHAR(255)
 c.	CourseNumber INT
-d.  AvgGPA REAL
-e.  ID INT `PRIMARY KEY`
+d.	AvgGPA REAL
+e.	ID INT `PRIMARY KEY`
 ```
 
 ## A low fidelity UI Mockup:
 
 
 ## Work Distribution
-Data input: 
-Front end: 
+Data input: \
+Front end: \
 Back end: 
