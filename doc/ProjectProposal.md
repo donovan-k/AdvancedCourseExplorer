@@ -61,8 +61,14 @@ e.	ID INT `PRIMARY KEY`
 
 ## A low fidelity UI Mockup:
 
+Search Page: 
+![search_page](https://media.github-dev.cs.illinois.edu/user/12652/files/2c57a076-cea4-4aa6-baf7-4df048cad562)
+
+Result Page: 
+![result_page](https://media.github-dev.cs.illinois.edu/user/12652/files/13f4d07d-3a06-4cd7-b784-88f11375aa17)
 
 ## Work Distribution
-Data input: \
-Front end: \
-Back end: 
+Data input: dkitten2\
+Front end: ericrc3\
+Back end: yuex7 & colintm3\
+*We will talk with each other and update this file if there is any work distribution change in the future.*
