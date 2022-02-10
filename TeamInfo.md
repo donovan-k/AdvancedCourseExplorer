@@ -17,11 +17,11 @@
 
 ## Project Information
 
-|   Info      |        Description     |
-| ----------- | ---------------------- |
-|  Title      |       ProjectTitle     |
-| System URL  |      link_to_system    |
-| Video Link  |      link_to_video     |
+|   Info      |          Description          |
+| ----------- | ----------------------------- |
+|  Title      | Your Personal Course Explorer |
+| System URL  |         link_to_system        |
+| Video Link  |         link_to_video         |
 
 ## Project Summary
 This project takes the original course explorer offered by UIUC and upgrades it
