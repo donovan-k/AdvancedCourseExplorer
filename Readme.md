@@ -4,4 +4,4 @@ TEAM_ID = 018
 
 Group Name: DEYC
 
-Team Members：dkitten2, ericrc3, yuex7, ericrc3, colintm3
+Team Members：dkitten2, yuex7, ericrc3, colintm3
