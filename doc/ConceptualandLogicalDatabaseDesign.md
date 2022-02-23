@@ -1,10 +1,13 @@
 # Conceptual and Logical Database Design
 
 ## UML Diagram 
-![UML_diagram](https://media.github-dev.cs.illinois.edu/user/12652/files/f730708f-8b54-4d70-99b5-187c816443b8)
+![UML_diagram](https://media.github-dev.cs.illinois.edu/user/12652/files/af0d9583-762c-4701-8edc-aa6b8d5643d9)
 
 ## Assumptions
-![diagram_assumptions](https://media.github-dev.cs.illinois.edu/user/12652/files/2213d3f2-6a31-487e-9e4c-293dc2b9194d)
+![assumption](https://media.github-dev.cs.illinois.edu/user/12652/files/d2f27b83-179d-4b49-8f92-a3ed37aca298)
+
+## Description
+![definition](https://media.github-dev.cs.illinois.edu/user/12652/files/bd6fb11c-e186-47d7-9966-6b8d87a9954d)
 
 ## Relational Schema
 - UserInfo(UserName: VARCHAR(255) [PK], Passcode: VARCHAR(255))
