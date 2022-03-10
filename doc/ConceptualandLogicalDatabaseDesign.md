@@ -15,6 +15,6 @@
 - Course(CourseNumber: INT [PK], Dept: VARCHAR(30) [PK], Description: VARCHAR(255), Credits: INT)
 - SectionInfo(SectionID: INT [PK], ProfessorID: VARCHAR(255) [FK to Professor.ID], Professors: VARCHAR(1000) [FK to Professor.Name], CourseNumber: INT [FK to Course.CourseNumber], Dept: VARCHAR(30) [FK to Course.Dept], YearTerm: VARCHAR(255) [FK to GenEdReq.YearTerm], AvgGPA: REAL)
 - Professor(ID: INT [PK], Name: VARCHAR [PK], Dept: VARCHAR(30))
-- GenEdReq(CourseNumber: INT [PK] [FK to Course.CourseNumber], Dept: VARCHAR(30) [PK] [FK to Course.Dept], YearTerm: VARCHAR(255) [PK], Title: VARCHAR(255), ACP: VARCHAR(255), CS: VARCHAR(255), HUM: VARCHAR(255), NAT: VARCHAR(255), QR: VARCHAR(255), SBS: VARCHAR(255))
+- GenEdReq(CourseNumber: INT [PK] [FK to Course.CourseNumber], Dept: VARCHAR(30) [PK] [FK to Course.Dept], YearTerm: VARCHAR(255) [PK], Title: VARCHAR(255), ACP: VARCHAR(30), CS: VARCHAR(30), HUM: VARCHAR(30), NAT: VARCHAR(30), QR: VARCHAR(30), SBS: VARCHAR(30))
 - Generates(ID: INT [PK] [FK to UserInput.ID], CourseNumber: INT [PK] [FK to Course.CourseNumber], Dept: VARCHAR(30) [PK] [FK to Course.Dept])
 
