@@ -62,19 +62,20 @@ CREATE TABLE Section (
   **Advanced SQL Queries**
     **#1**    
     
-            -- Finds the average points, assists, and 3P for a team
-            SELECT
-            FROM
+            -- Find the Number of professors and the ID, Name, department of the professors which has taught 3-credit Non-CS department courses with average GPA greater or equal to 3.5, order by professor ID. 
+            SELECT p.ID, p.Name, p.Dept, COUNT(p.ID)
+            FROM Course c NATURAL JOIN SectionInfo s JOIN Professor p on (p.ID = s.ProfessorID)
+            WHERE c.Credits = 3 AND c.Dept != 'CS' AND s.AvgGPA >= 3.5
+            GROUP BY Professor
+            ORDER BY p.ID
+
   ***Screenshot of First 15 Rows of Advanced Query 1*** 
                                 
   **Advanced SQL Queries**
     **#2**    
     
-            -- Find Arenas where players shoot the best in
-            SELECT ArenaID, AVG(3P) AS Average_3percentage, AVG(FG) AS Average_FieldGoalpercentage
-            FROM PlayerStats JOIN Team USING(TeamID) JOIN ArenaStats USING (ArenaID)
-            GROUP BY ArenaID
-            ORDER BY Average_FieldGoalpercentage ASC, Average_3percentage ASC
+            -- Find 
+            SELECT 
 
    ***Screenshot of First 15 Rows of Advanced Query 2*** 
 
