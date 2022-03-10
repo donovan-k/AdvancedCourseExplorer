@@ -17,7 +17,7 @@ CREATE TABLE Course (
 CREATE TABLE GenEdReq (
     CourseNumber INT PRIMARY KEY NOT NULL, 
     Dept VARCHAR(30) PRIMARY KEY NOT NULL, 
-    YearTerm VARCHAR(255) PRIMARY KEY, 
+    YearTerm VARCHAR(255) PRIMARY KEY NOT NULL, 
     Title VARCHAR(255), 
     ACP VARCHAR(30), 
     CS VARCHAR(30), 
@@ -47,7 +47,7 @@ CREATE TABLE Section (
     Professors VARCHAR(1000), 
     CourseNumber INT, 
     Dept VARCHAR(30), 
-    YearTerm VARCHAR(255) [FK to GenEdReq.YearTerm], 
+    YearTerm VARCHAR(255), 
     AvgGPA REAL,
     FOREIGN KEY(ProfessorID) REFERENCES Professor(ID) ON DELETE CASCADE, 
     FOREIGN KEY(Professors) REFERENCES Professor(Name) ON DELETE CASCADE,
