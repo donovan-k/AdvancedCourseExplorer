@@ -1,19 +1,20 @@
 # Conceptual and Logical Database Design
 
 ## UML Diagram 
-![Inkednew uml_LI](https://media.github-dev.cs.illinois.edu/user/12652/files/39f1e6b0-6a5b-4163-bf7e-e443d652ef71)
+![updated_uml](https://media.github-dev.cs.illinois.edu/user/12652/files/5459502f-611f-46af-8512-1dda71de2842)
 
 ## Entity relationships
-![relationship](https://media.github-dev.cs.illinois.edu/user/12652/files/ab6f887a-7157-47f5-b4b0-b64d5f027e11)
+![updated_relationships](https://media.github-dev.cs.illinois.edu/user/12652/files/f00203a0-b29b-4dcc-bad6-0ea6b5e25217)
 
 ## Entity definitions
-![entity](https://media.github-dev.cs.illinois.edu/user/12652/files/c4db728b-3641-4363-9100-713bfda1259f)
+![updated_assumptions](https://media.github-dev.cs.illinois.edu/user/12652/files/619e403c-5a2d-43e9-8593-626e241023d7)
 
 ## Relational Schema
 - UserInfo(UserName: VARCHAR(255) [PK], Passcode: VARCHAR(255))
 - UserInput(ID: INT [PK], UserName: VARCHAR(255) [FK to UserInfo.UserName], Interests: VARCHAR(255), FavProfessor: VARCHAR(255) [FK to Professor.Name], AvgGPA: REAL, CourseReq: VARCHAR(255))
-- Course(CourseNumber: INT [PK], Dept: VARCHAR(30) [PK], InterestTags: VARCHAR(255), Credits: INT, PreReqs: VARCHAR(255))
-- SectionInfo(SectionID: INT [PK], ProfessorID: VARCHAR(255) [FK to Professor.ID], CourseNumber: INT [FK to Course.CourseNumber], Dept: VARCHAR(30) [FK to Course.Dept], AvgGPA: REAL)
-- Professor(ID: INT [PK], Name: VARCHAR [PK], Dept: VARCHAR(30), Interests: VARCHAR(255))
+- Course(CourseNumber: INT [PK], Dept: VARCHAR(30) [PK], Description: VARCHAR(255), Credits: INT)
+- SectionInfo(SectionID: INT [PK], ProfessorID: VARCHAR(255) [FK to Professor.ID], Professors: VARCHAR(1000) [FK to Professor.Name], CourseNumber: INT [FK to Course.CourseNumber], Dept: VARCHAR(30) [FK to Course.Dept], YearTerm: VARCHAR(255) [FK to GenEdReq.YearTerm], AvgGPA: REAL)
+- Professor(ID: INT [PK], Name: VARCHAR [PK], Dept: VARCHAR(30))
+- GenEdReq(CourseNumber: INT [PK] [FK to Course.CourseNumber], Dept: VARCHAR(30) [PK] [FK to Course.Dept], YearTerm: VARCHAR(255) [PK], Title: VARCHAR(255), ACP: VARCHAR(255), CS: VARCHAR(255), HUM: VARCHAR(255), NAT: VARCHAR(255), QR: VARCHAR(255), SBS: VARCHAR(255))
 - Generates(ID: INT [PK] [FK to UserInput.ID], CourseNumber: INT [PK] [FK to Course.CourseNumber], Dept: VARCHAR(30) [PK] [FK to Course.Dept])
 
