@@ -57,7 +57,7 @@ CREATE TABLE Section (
     CourseNumber INT, 
     Dept VARCHAR(30), 
     YearTerm VARCHAR(255), 
-    AvgGPA REAL,
+    AvgGPA VARCHAR(10),
     FOREIGN KEY(ProfessorID) REFERENCES Professor(ID) ON DELETE CASCADE, 
     FOREIGN KEY(CourseNumber) REFERENCES Course(CourseNumber) ON DELETE CASCADE, 
     FOREIGN KEY(Dept) REFERENCES Course(Dept) ON DELETE CASCADE
