@@ -139,6 +139,22 @@ CREATE TABLE Section (
                  -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.001..0.002 rows=1 loops=459)
 </pre>  
 
+  ***After Index 1 of CREATE INDEX idx1 ON Course(Dept)***
+  <pre>
+  -> Sort: <temporary>.ID  (actual time=6.782..6.796 rows=204 loops=1)
+     -> Table scan on <temporary>  (actual time=0.001..0.024 rows=204 loops=1)
+         -> Aggregate using temporary table  (actual time=6.687..6.727 rows=204 loops=1)
+             -> Nested loop inner join  (cost=1867.37 rows=264) (actual time=0.078..6.305 rows=461 loops=1)
+                 -> Nested loop inner join  (cost=1774.84 rows=264) (actual time=0.061..5.057 rows=459 loops=1)
+                     -> Filter: ((s.Dept <> 'CS') and (s.AvgGPA >= 3.5) and (s.CourseNumber is not null) and (s.Dept is not null) and (s.ProfessorID is not null))  (cost=849.65 rows=2643) (actual time=0.047..3.778 rows=824 loops=1)
+                         -> Table scan on s  (cost=849.65 rows=8414) (actual time=0.041..2.729 rows=8243 loops=1)
+                     -> Filter: (c.Credits = 3)  (cost=0.25 rows=0) (actual time=0.001..0.001 rows=1 loops=824)
+                         -> Single-row index lookup on c using PRIMARY (CourseNumber=s.CourseNumber, Dept=s.Dept)  (cost=0.25 rows=1) (actual time=0.001..0.001 rows=1 loops=824)
+                 -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.002..0.002 rows=1 loops=459)
+ </pre>
+
+**H**
+
   ***Explain and Analyze Results of Query 2 Before Indexing***
   <pre>
   -> Sort: <temporary>.Dept  (actual time=10.994..10.995 rows=12 loops=1)
