@@ -114,6 +114,7 @@ CREATE TABLE Section (
     **#2**    
 
             -- Find the courses satisfies the "US minority" category eith average gpa 3.5 and above. Return the course title, course department, and the number of sections which average gpa falls into the category(>=3.5). 
+            EXPLAIN ANALYZE
             SELECT g.Title, g.Dept, COUNT(s.SectionID)
             FROM Course c NATURAL JOIN GenEdReq g JOIN Section s on (c.CourseNumber = s.CourseNumber AND c.Dept = s.Dept)
             WHERE g.CS = 'US' AND s.AvgGpa >= 3.5
