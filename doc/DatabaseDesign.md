@@ -149,7 +149,9 @@ CREATE TABLE Section (
 > **Explaination**
 > We choose to index on Course(Credits) since multiple indexes seemed to mess up the time. We choose correctly
 > as we can see the sorting time decreased, the table scan time decreased, aggregate time decreased, etc. This one 
-> seems to make the time better for all operation, so this is the indexing we will choose.
+> seems to make the time better for all operations, so this is the indexing we will choose.
+
+**Winner - CREATE INDEX c ON Course(Credits);***
 
   ***Explain and Analyze Results of Query 2 Before Indexing***
   ```
