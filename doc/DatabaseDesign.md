@@ -77,37 +77,36 @@ CREATE TABLE Section (
             GROUP BY s.ProfessorID
             ORDER BY p.ID
 
-  ***Screenshot of First 15 Rows of Advanced Query 1*** 
-  0	Boonsripaisal, S	AAS
-	4
-1	Espiritu, A	AAS
-	2
-6	Rana, J	AAS
-	1
-9	Burgos, A	AAS
-	1
-39	Burnett, M	ACE
-	2
-43	Stevens, A	ACE
-	2
-46	Stoddard, P	ACE
-	2
-47	Lemoine, C	ACE
-	1
-50	Ando, A	ACE
-	4
-52	Brazee, R	ACE
-	4
-53	Ellison, B	ACE
-	1
-64	Schnitkey, G	ACE
-	2
-83	Emmert, J	ACES
-	1
-84	Hall, S	ADV
-	2
-85	Clifton, D	ADV
-	1
+  ***First 15 Rows of Advanced Query 1*** 
+| ID | Professor | Dept | CoursesTaught |
+|---|---|---|---|
+|0|	Boonsripaisal, S|	AAS |4|
+|1|	Espiritu, A	|AAS |2|
+|6|	Rana, J	|AAS|1|
+|9|	Burgos, A	|AAS|1|
+|39|	Burnett, M	|ACE|2|
+|43|	Stevens, A	|ACE|2|
+|46|	Stoddard, P	|ACE|2|
+|47|	Lemoine, C	|ACE|1|
+|50|	Ando, A	|ACE|4|
+|52|	Brazee, R	|ACE|4|
+|53|	Ellison, B	|ACE|1|
+|64|	Schnitkey, G |ACE|2|
+|83|	Emmert, J	|ACES|1|
+|84|	Hall, S	|ADV|2|
+|85|	Clifton, D	|ADV|1|
+  ***Explain and Analyze Results of Query 1***
+   -> Sort: <temporary>.ID  (actual time=6.177..6.191 rows=204 loops=1)
+     -> Table scan on <temporary>  (actual time=0.001..0.024 rows=204 loops=1)
+         -> Aggregate using temporary table  (actual time=6.085..6.121 rows=204 loops=1)
+             -> Nested loop inner join  (cost=2287.91 rows=264) (actual time=0.095..5.655 rows=461 loops=1)
+                 -> Nested loop inner join  (cost=2195.38 rows=264) (actual time=0.082..4.726 rows=459 loops=1)
+                     -> Filter: ((s.Dept <> 'CS') and (s.AvgGPA >= 3.5) and (s.CourseNumber is not null) and (s.Dept is not null) and (s.ProfessorID is not null))  (cost=849.65 rows=2643) (actual time=0.066..3.693 rows=824 loops=1)
+                         -> Table scan on s  (cost=849.65 rows=8414) (actual time=0.058..2.574 rows=8243 loops=1)
+                     -> Filter: (c.Credits = 3)  (cost=0.41 rows=0) (actual time=0.001..0.001 rows=1 loops=824)
+                         -> Single-row index lookup on c using PRIMARY (CourseNumber=s.CourseNumber, Dept=s.Dept)  (cost=0.41 rows=1) (actual time=0.001..0.001 rows=1 loops=824)
+                 -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.001..0.002 rows=1 loops=459)
+                              
                                 
   **Advanced SQL Queries**
     **#2**    
