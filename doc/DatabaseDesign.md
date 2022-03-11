@@ -153,7 +153,7 @@ CREATE TABLE Section (
                  -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.002..0.002 rows=1 loops=459)
  </pre>
 
-**H**
+****asdffdjlksdfkjl****
 
   ***Explain and Analyze Results of Query 2 Before Indexing***
   <pre>
