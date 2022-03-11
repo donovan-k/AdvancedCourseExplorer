@@ -132,24 +132,24 @@ CREATE TABLE Section (
 > AvgGPA column as well. This index design helped the time better than the last index design probably because I made sure to create indexes
 > that would help with the filtering. However, these indexes did not do better than the indexes we started off with.
 
-  ***After Index 3 of CREATE INDEX c ON Course(Credits); CREATE INDEX a ON Section(AvgGPA);***
+  ***After Index 3 of CREATE INDEX c ON Course(Credits);***
   ```
-  -> Sort: <temporary>.ID  (actual time=6.254..6.268 rows=204 loops=1)
+  -> Sort: <temporary>.ID  (actual time=5.894..5.908 rows=204 loops=1)
      -> Table scan on <temporary>  (actual time=0.001..0.024 rows=204 loops=1)
-         -> Aggregate using temporary table  (actual time=6.137..6.178 rows=204 loops=1)
-             -> Nested loop inner join  (cost=2124.37 rows=999) (actual time=0.102..5.772 rows=461 loops=1)
-                 -> Nested loop inner join  (cost=1774.84 rows=999) (actual time=0.092..4.697 rows=459 loops=1)
-                     -> Filter: ((s.Dept <> 'CS') and (s.AvgGPA >= 3.5) and (s.CourseNumber is not null) and (s.Dept is not null) and (s.ProfessorID is not null))  (cost=849.65 rows=2643) (actual time=0.075..3.576 rows=824 loops=1)
-                         -> Table scan on s  (cost=849.65 rows=8414) (actual time=0.047..2.532 rows=8243 loops=1)
+         -> Aggregate using temporary table  (actual time=5.677..5.717 rows=204 loops=1)
+             -> Nested loop inner join  (cost=2124.37 rows=999) (actual time=0.097..5.335 rows=461 loops=1)
+                 -> Nested loop inner join  (cost=1774.84 rows=999) (actual time=0.065..4.496 rows=459 loops=1)
+                     -> Filter: ((s.Dept <> 'CS') and (s.AvgGPA >= 3.5) and (s.CourseNumber is not null) and (s.Dept is not null) and (s.ProfessorID is not null))  (cost=849.65 rows=2643) (actual time=0.047..3.584 rows=824 loops=1)
+                         -> Table scan on s  (cost=849.65 rows=8414) (actual time=0.030..2.531 rows=8243 loops=1)
                      -> Filter: (c.Credits = 3)  (cost=0.25 rows=0) (actual time=0.001..0.001 rows=1 loops=824)
                          -> Single-row index lookup on c using PRIMARY (CourseNumber=s.CourseNumber, Dept=s.Dept)  (cost=0.25 rows=1) (actual time=0.001..0.001 rows=1 loops=824)
-                 -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.002..0.002 rows=1 loops=459)
+                 -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.001..0.002 rows=1 loops=459)
  ```
 
 > **Explaination**
-> We choose to index on Course(Credits) and Section(AvgGPA) since this query is finding credits with 3 credits and filtering the 
-> AvgGPA column as well. This index design helped the time better than the last index design probably because I made sure to create indexes
-> that would help with the filtering. However, these indexes did not do better than the indexes we started off with.
+> We choose to index on Course(Credits) since multiple indexes seemed to mess up the time. We choose correctly
+> as we can see the sorting time decreased, the table scan time decreased, aggregate time decreased, etc. This one 
+> seems to make the time better for all operation, so this is the indexing we will choose.
 
   ***Explain and Analyze Results of Query 2 Before Indexing***
   ```
