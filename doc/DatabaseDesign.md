@@ -71,9 +71,9 @@ CREATE TABLE Section (
     
             -- Find the Number of professors and the ID, Name, department of the professors which has taught 3-credit Non-CS department courses with average GPA greater or equal to 3.5, order by professor ID. 
             SELECT p.ID, p.Name, p.Dept, COUNT(p.ID)
-            FROM Course c NATURAL JOIN SectionInfo s JOIN Professor p on (p.ID = s.ProfessorID)
+            FROM Course c NATURAL JOIN Section s JOIN Professor p on (p.ID = s.ProfessorID)
             WHERE c.Credits = 3 AND c.Dept != 'CS' AND s.AvgGPA >= 3.5
-            GROUP BY Professor
+            GROUP BY s.ProfessorID
             ORDER BY p.ID
 
   ***Screenshot of First 15 Rows of Advanced Query 1*** 
