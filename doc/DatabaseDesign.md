@@ -151,7 +151,7 @@ CREATE TABLE Section (
 > as we can see the sorting time decreased, the table scan time decreased, aggregate time decreased, etc. This one 
 > seems to make the time better for all operations, so this is the indexing we will choose.
 
-**Winner - CREATE INDEX c ON Course(Credits);***
+**Winner - CREATE INDEX c ON Course(Credits); for best time**
 
   ***Explain and Analyze Results of Query 2 Before Indexing***
   ```
@@ -166,3 +166,64 @@ CREATE TABLE Section (
                          -> Index lookup on s using CourseNumber (CourseNumber=g.CourseNumber)  (cost=4.15 rows=17) (actual time=0.015..0.030 rows=28 loops=305)
                  -> Single-row index lookup on c using PRIMARY (CourseNumber=g.CourseNumber, Dept=g.Dept)  (cost=0.42 rows=1) (actual time=0.002..0.002 rows=1 loops=37)
   ```
+  
+  ***After Index 1 of CREATE INDEX ex ON GenEdReq(Title);***
+  ```
+  -> Sort: <temporary>.Dept  (actual time=11.803..11.804 rows=12 loops=1)
+     -> Stream results  (actual time=0.696..11.687 rows=12 loops=1)
+         -> Group aggregate: count(s.SectionID)  (actual time=0.696..11.684 rows=12 loops=1)
+             -> Nested loop inner join  (cost=1264.01 rows=9) (actual time=0.318..11.630 rows=37 loops=1)
+                 -> Nested loop inner join  (cost=1260.78 rows=9) (actual time=0.308..11.546 rows=37 loops=1)
+                     -> Filter: ((g.CS = 'US') and (g.CourseNumber is not null) and (g.Dept is not null))  (cost=187.95 rows=185) (actual time=0.053..1.131 rows=305 loops=1)
+                         -> Index scan on g using PRIMARY  (cost=187.95 rows=1847) (actual time=0.050..0.923 rows=1920 loops=1)
+                     -> Filter: ((s.Dept = g.Dept) and (s.AvgGPA >= 3.5))  (cost=4.15 rows=0) (actual time=0.032..0.034 rows=0 loops=305)
+                         -> Index lookup on s using CourseNumber (CourseNumber=g.CourseNumber)  (cost=4.15 rows=17) (actual time=0.014..0.031 rows=28 loops=305)
+                 -> Single-row index lookup on c using PRIMARY (CourseNumber=g.CourseNumber, Dept=g.Dept)  (cost=0.26 rows=1) (actual time=0.002..0.002 rows=1 loops=37)
+ ```
+ 
+> **Explaination**
+> I choose to create an index on GenEdReq(Title) because I thought it could speed up the time selecting the 
+> title attribute from the GenEdReq table. It did not help sorting, streaming, aggregating, and other operations.
+> The reason for this is because this attribute would not help with filtering so all it did was 
+> add unnecessary complexity to the indexing.
+
+  ***After Index 2 of CREATE INDEX ey ON Section(AvgGpa);***
+  ```
+  -> Sort: <temporary>.Dept  (actual time=9.762..9.763 rows=12 loops=1)
+     -> Stream results  (actual time=0.745..9.734 rows=12 loops=1)
+         -> Group aggregate: count(s.SectionID)  (actual time=0.744..9.731 rows=12 loops=1)
+             -> Nested loop inner join  (cost=1264.01 rows=9) (actual time=0.366..9.708 rows=37 loops=1)
+                 -> Nested loop inner join  (cost=1260.78 rows=9) (actual time=0.350..9.642 rows=37 loops=1)
+                     -> Filter: ((g.CS = 'US') and (g.CourseNumber is not null) and (g.Dept is not null))  (cost=187.95 rows=185) (actual time=0.058..0.932 rows=305 loops=1)
+                         -> Index scan on g using PRIMARY  (cost=187.95 rows=1847) (actual time=0.055..0.758 rows=1920 loops=1)
+                     -> Filter: ((s.Dept = g.Dept) and (s.AvgGPA >= 3.5))  (cost=4.15 rows=0) (actual time=0.026..0.028 rows=0 loops=305)
+                         -> Index lookup on s using CourseNumber (CourseNumber=g.CourseNumber)  (cost=4.15 rows=17) (actual time=0.011..0.026 rows=28 loops=305)
+                 -> Single-row index lookup on c using PRIMARY (CourseNumber=g.CourseNumber, Dept=g.Dept)  (cost=0.26 rows=1) (actual time=0.002..0.002 rows=1 loops=37)
+ ```
+ 
+ > **Explaination**
+ > I choose to index on Section(AvgGpa) since this attribute is used in the where clause. This decision 
+ > followed through as we can see it sped up many of the operations higher bound on the time. However, it 
+ > was unable to speed up the lower bound on the times, but it shorted the distance between the bounds, so 
+ > we can say it performed better than before adding this index.
+ 
+ ***After Index 3 of CREATE INDEX ez ON GenEdReq(CS);***
+ ```
+ -> Sort: <temporary>.Dept  (actual time=11.045..11.046 rows=12 loops=1)
+     -> Stream results  (actual time=1.985..11.020 rows=12 loops=1)
+         -> Group aggregate: count(s.SectionID)  (actual time=1.984..11.017 rows=12 loops=1)
+             -> Nested loop inner join  (cost=1817.17 rows=15) (actual time=1.609..10.993 rows=37 loops=1)
+                 -> Nested loop inner join  (cost=1811.84 rows=15) (actual time=1.599..10.934 rows=37 loops=1)
+                     -> Index lookup on g using ez (CS='US'), with index condition: ((g.CourseNumber is not null) and (g.Dept is not null))  (cost=40.25 rows=305) (actual time=1.539..2.528 rows=305 loops=1)
+                     -> Filter: ((s.Dept = g.Dept) and (s.AvgGPA >= 3.5))  (cost=4.15 rows=0) (actual time=0.025..0.027 rows=0 loops=305)
+                         -> Index lookup on s using CourseNumber (CourseNumber=g.CourseNumber)  (cost=4.15 rows=17) (actual time=0.010..0.025 rows=28 loops=305)
+                 -> Single-row index lookup on c using PRIMARY (CourseNumber=g.CourseNumber, Dept=g.Dept)  (cost=0.26 rows=1) (actual time=0.001..0.001 rows=1 loops=37)
+ ```
+  > **Explaination**
+  > I choose to index on GenEdReq(CS) since it was used as a filtering option. However, it seems like
+  > this was a poor decision as all the times seem to slower than the default indexing. The reason for
+  > this is because of the data contents. The data has a lot of null values in the CS column which could 
+  > make this indexing only complicate things.
+
+**Winner - CREATE INDEX ey ON Section(AvgGpa); for best time**
+ 
