@@ -5,45 +5,54 @@
 **Course(CourseNumber,Dept,Description,Credits)**
 ```sql
 CREATE TABLE Course (
-    CourseNumber INT PRIMARY KEY NOT NULL, 
-    Dept VARCHAR(30) PRIMARY KEY NOT NULL, 
-    Description VARCHAR(255), 
-    Credits INT
-); 
+  CourseNumber int(11) NOT NULL,
+  Dept varchar(30) NOT NULL,
+  Description varchar(255),
+  Credits int(11),
+  PRIMARY KEY (CourseNumber,Dept),
+  KEY CourseNumber (CourseNumber),
+  KEY Dept (Dept)
+);
 ```
 
 **GenEdReq(CourseNumber,Dept,YearTerm,Title,ACP,CS,HUM,NAT,QR,SBS)**
 ```sql
 CREATE TABLE GenEdReq (
-    CourseNumber INT PRIMARY KEY NOT NULL, 
-    Dept VARCHAR(30) PRIMARY KEY NOT NULL, 
-    YearTerm VARCHAR(255) PRIMARY KEY NOT NULL, 
-    Title VARCHAR(255), 
-    ACP VARCHAR(30), 
-    CS VARCHAR(30), 
-    HUM VARCHAR(30), 
-    NAT VARCHAR(30), 
-    QR VARCHAR(30), 
-    SBS VARCHAR(30),
-    FOREIGN KEY(CourseNumber) REFERENCES Course(CourseNumber) ON DELETE CASCADE, 
-    FOREIGN KEY(Dept) REFERENCES Course(Dept) ON DELETE CASCADE
-); 
+  CourseNumber int(11) NOT NULL,
+  Dept varchar(30) NOT NULL,
+  YearTerm varchar(255) NOT NULL,
+  Title varchar(255),
+  ACP varchar(30),
+  CS varchar(30),
+  HUM varchar(30),
+  NAT varchar(30),
+  QR varchar(30),
+  SBS varchar(30),
+  PRIMARY KEY (CourseNumber,Dept,YearTerm),
+  KEY Dept (Dept),
+  KEY YearTerm (YearTerm),
+  FOREIGN KEY (CourseNumber) REFERENCES Course (CourseNumber) ON DELETE CASCADE,
+  FOREIGN KEY (Dept) REFERENCES Course (Dept) ON DELETE CASCADE
+);
 ```
 
 **Professor(ID,Name,Dept)**
 ```sql
 CREATE TABLE Professor (
-    ID INT PRIMARY KEY NOT NULL, 
-    Name VARCHAR PRIMARY KEY NOT NULL, 
-    Dept VARCHAR(30)
-); 
+  ID int(11) NOT NULL,
+  Name varchar(1000) NOT NULL,
+  Dept varchar(30),
+  PRIMARY KEY (ID,Name),
+  KEY ID (ID),
+  KEY Name (Name)
+);
 ```
 
 **Section(SectionID,ProfessorID,Professors,CourseNumber,Dept,YearTerm,AvgGPA)**
 ```sql
 CREATE TABLE Section (
     SectionID INT PRIMARY KEY NOT NULL, 
-    ProfessorID VARCHAR(255), 
+    ProfessorID INT, 
     Professors VARCHAR(1000), 
     CourseNumber INT, 
     Dept VARCHAR(30), 
