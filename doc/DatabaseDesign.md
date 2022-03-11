@@ -128,7 +128,7 @@ CREATE TABLE Section (
 |Muslims in America|AAS|2|
 |Economics of Food and Environmental Justice|ACE|8|
 |Intro to African American St|AFRO|2|
-|Humanist Persp of Afro-Am| Exp|AFRO|2|
+|Humanist Persp of Afro-Am Exp|AFRO|2|
 |Hist Arch Americas|ANTH|2|
 |Contemporary Social Issues|ANTH|1|
 |Social Movement Communication|CMN|4|
