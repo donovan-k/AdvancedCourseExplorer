@@ -114,11 +114,40 @@ CREATE TABLE Section (
     **#2**    
 
             -- Find the courses satisfies the "US minority" category eith average gpa 3.5 and above. Return the course title, course department, and the number of sections which average gpa falls into the category(>=3.5). 
-            SELECT g.Title, g.Dept, COUNT(s.SectionInfo)
-            FROM Course c NATURAL JOIN GenEdReq g JOIN SectionInfo s on (c.CourseNumber = s.CourseNumber AND c.Dept = s.Dept)
-            WHERE c.Dept = 'ACS' AND g.CS = 'US' AND s.AvgGpa >= 3.5
-            GROUP BY GenEdReq
+            SELECT g.Title, g.Dept, COUNT(s.SectionID)
+            FROM Course c NATURAL JOIN GenEdReq g JOIN Section s on (c.CourseNumber = s.CourseNumber AND c.Dept = s.Dept)
+            WHERE g.CS = 'US' AND s.AvgGpa >= 3.5
+            GROUP BY g.CourseNumber, g.Dept
+            ORDER BY Dept
 
-   ***Screenshot of First 15 Rows of Advanced Query 2*** 
+   ***All 12 Rows of Advanced Query 2*** 
+|Title|Dept|SectionCount|
+|---|---|---|
+|Intro Asian American Studies|AAS|8|
+|Muslims in America|AAS|2|
+|Economics of Food and Environmental Justice|ACE|8|
+|Intro to African American St|AFRO|2|
+|Humanist Persp of Afro-Am| Exp|AFRO|2|
+|Hist Arch Americas|ANTH|2|
+|Contemporary Social Issues|ANTH|1|
+|Social Movement Communication|CMN|4|
+|Race and Cultural Diversity|EPS|2|
+|US Latina and Latino Families|HDFS|2|
+|Constructing Race in America|HIST|2|
+|Diversity: Identities & Issues|SOCW|2|
 
+  ***Explain and Analyze Results of Query 2***
+  <pre>
+  -> Sort: <temporary>.Dept  (actual time=10.994..10.995 rows=12 loops=1)
+     -> Stream results  (actual time=0.592..10.938 rows=12 loops=1)
+         -> Group aggregate: count(s.SectionID)  (actual time=0.591..10.935 rows=12 loops=1)
+             -> Nested loop inner join  (cost=1265.48 rows=9) (actual time=0.157..10.911 rows=37 loops=1)
+                 -> Nested loop inner join  (cost=1260.78 rows=9) (actual time=0.136..10.815 rows=37 loops=1)
+                     -> Filter: ((g.CS = 'US') and (g.CourseNumber is not null) and (g.Dept is not null))  (cost=187.95 rows=185) (actual time=0.065..0.928 rows=305 loops=1)
+                         -> Index scan on g using PRIMARY  (cost=187.95 rows=1847) (actual time=0.062..0.754 rows=1920 loops=1)
+                     -> Filter: ((s.Dept = g.Dept) and (s.AvgGPA >= 3.5))  (cost=4.15 rows=0) (actual time=0.030..0.032 rows=0 loops=305)
+                         -> Index lookup on s using CourseNumber (CourseNumber=g.CourseNumber)  (cost=4.15 rows=17) (actual time=0.015..0.030 rows=28 loops=305)
+                 -> Single-row index lookup on c using PRIMARY (CourseNumber=g.CourseNumber, Dept=g.Dept)  (cost=0.42 rows=1) (actual time=0.002..0.002 rows=1 loops=37)
+  </pre>
+  
 ## Indexing Analysis
