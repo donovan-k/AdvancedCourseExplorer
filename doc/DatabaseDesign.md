@@ -72,31 +72,10 @@ CREATE TABLE Section (
 ![image](https://media.github-dev.cs.illinois.edu/user/10922/files/1ab17aa1-be06-4e58-b71f-7b2a7eb723f9)
                                                           
   **Advanced SQL Queries**
-    **#2**    
+    **#2 and Results**    
+  
+![image](https://media.github-dev.cs.illinois.edu/user/10922/files/a78efbfe-cbbe-4f2b-86c0-dc7cb7426f3e)
 
-            -- Find the courses satisfies the "US minority" category eith average gpa 3.5 and above. Return the course title, course department, and the number of sections which average gpa falls into the category(>=3.5). 
-            EXPLAIN ANALYZE
-            SELECT g.Title, g.Dept, COUNT(s.SectionID)
-            FROM Course c NATURAL JOIN GenEdReq g JOIN Section s on (c.CourseNumber = s.CourseNumber AND c.Dept = s.Dept)
-            WHERE g.CS = 'US' AND s.AvgGpa >= 3.5
-            GROUP BY g.CourseNumber, g.Dept
-            ORDER BY Dept
-
-   ***All 12 Rows of Advanced Query 2*** 
-|Title|Dept|SectionCount|
-|---|---|---|
-|Intro Asian American Studies|AAS|8|
-|Muslims in America|AAS|2|
-|Economics of Food and Environmental Justice|ACE|8|
-|Intro to African American St|AFRO|2|
-|Humanist Persp of Afro-Am Exp|AFRO|2|
-|Hist Arch Americas|ANTH|2|
-|Contemporary Social Issues|ANTH|1|
-|Social Movement Communication|CMN|4|
-|Race and Cultural Diversity|EPS|2|
-|US Latina and Latino Families|HDFS|2|
-|Constructing Race in America|HIST|2|
-|Diversity: Identities & Issues|SOCW|2|
   
 ## Indexing Analysis
 
