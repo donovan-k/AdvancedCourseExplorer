@@ -94,21 +94,7 @@ CREATE TABLE Section (
 |64|	Schnitkey, G |ACE|2|
 |83|	Emmert, J	|ACES|1|
 |84|	Hall, S	|ADV|2|
-|85|	Clifton, D	|ADV|1|
-
-  ***Explain and Analyze Results of Query 1***
-  <pre>
-   -> Sort: <temporary>.ID  (actual time=6.177..6.191 rows=204 loops=1)
-     -> Table scan on <temporary>  (actual time=0.001..0.024 rows=204 loops=1)
-         -> Aggregate using temporary table  (actual time=6.085..6.121 rows=204 loops=1)
-             -> Nested loop inner join  (cost=2287.91 rows=264) (actual time=0.095..5.655 rows=461 loops=1)
-                 -> Nested loop inner join  (cost=2195.38 rows=264) (actual time=0.082..4.726 rows=459 loops=1)
-                     -> Filter: ((s.Dept <> 'CS') and (s.AvgGPA >= 3.5) and (s.CourseNumber is not null) and (s.Dept is not null) and (s.ProfessorID is not null))  (cost=849.65 rows=2643) (actual time=0.066..3.693 rows=824 loops=1)
-                         -> Table scan on s  (cost=849.65 rows=8414) (actual time=0.058..2.574 rows=8243 loops=1)
-                     -> Filter: (c.Credits = 3)  (cost=0.41 rows=0) (actual time=0.001..0.001 rows=1 loops=824)
-                         -> Single-row index lookup on c using PRIMARY (CourseNumber=s.CourseNumber, Dept=s.Dept)  (cost=0.41 rows=1) (actual time=0.001..0.001 rows=1 loops=824)
-                 -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.001..0.002 rows=1 loops=459)
-</pre>                              
+|85|	Clifton, D	|ADV|1|                            
                                 
   **Advanced SQL Queries**
     **#2**    
@@ -136,8 +122,24 @@ CREATE TABLE Section (
 |US Latina and Latino Families|HDFS|2|
 |Constructing Race in America|HIST|2|
 |Diversity: Identities & Issues|SOCW|2|
+  
+## Indexing Analysis
 
-  ***Explain and Analyze Results of Query 2***
+  ***Explain and Analyze Results of Query 1 Before Indexing***
+  <pre>
+   -> Sort: <temporary>.ID  (actual time=6.177..6.191 rows=204 loops=1)
+     -> Table scan on <temporary>  (actual time=0.001..0.024 rows=204 loops=1)
+         -> Aggregate using temporary table  (actual time=6.085..6.121 rows=204 loops=1)
+             -> Nested loop inner join  (cost=2287.91 rows=264) (actual time=0.095..5.655 rows=461 loops=1)
+                 -> Nested loop inner join  (cost=2195.38 rows=264) (actual time=0.082..4.726 rows=459 loops=1)
+                     -> Filter: ((s.Dept <> 'CS') and (s.AvgGPA >= 3.5) and (s.CourseNumber is not null) and (s.Dept is not null) and (s.ProfessorID is not null))  (cost=849.65 rows=2643) (actual time=0.066..3.693 rows=824 loops=1)
+                         -> Table scan on s  (cost=849.65 rows=8414) (actual time=0.058..2.574 rows=8243 loops=1)
+                     -> Filter: (c.Credits = 3)  (cost=0.41 rows=0) (actual time=0.001..0.001 rows=1 loops=824)
+                         -> Single-row index lookup on c using PRIMARY (CourseNumber=s.CourseNumber, Dept=s.Dept)  (cost=0.41 rows=1) (actual time=0.001..0.001 rows=1 loops=824)
+                 -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.001..0.002 rows=1 loops=459)
+</pre>  
+
+  ***Explain and Analyze Results of Query 2 Before Indexing***
   <pre>
   -> Sort: <temporary>.Dept  (actual time=10.994..10.995 rows=12 loops=1)
      -> Stream results  (actual time=0.592..10.938 rows=12 loops=1)
@@ -150,5 +152,3 @@ CREATE TABLE Section (
                          -> Index lookup on s using CourseNumber (CourseNumber=g.CourseNumber)  (cost=4.15 rows=17) (actual time=0.015..0.030 rows=28 loops=305)
                  -> Single-row index lookup on c using PRIMARY (CourseNumber=g.CourseNumber, Dept=g.Dept)  (cost=0.42 rows=1) (actual time=0.002..0.002 rows=1 loops=37)
   </pre>
-  
-## Indexing Analysis
