@@ -67,35 +67,10 @@ CREATE TABLE Section (
 ## Advanced SQL queries
   
   **Advanced SQL Queries**
-    **#1**    
+    **#1 and Results**    
     
-            -- Find the Number of professors and the ID, Name, department of the professors which has taught 3-credit Non-CS department courses with average GPA greater or equal to 3.5, order by professor ID. 
-            EXPLAIN ANALYZE
-            SELECT p.ID, p.Name, p.Dept, COUNT(p.ID)
-            FROM Course c NATURAL JOIN Section s JOIN Professor p on (p.ID = s.ProfessorID)
-            WHERE c.Credits = 3 AND c.Dept != 'CS' AND s.AvgGPA >= 3.5
-            GROUP BY s.ProfessorID
-            ORDER BY p.ID
-
-  ***First 15 Rows of Advanced Query 1*** 
-| ID | Professor | Dept | CoursesTaught |
-|---|---|---|---|
-|0|	Boonsripaisal, S|	AAS |4|
-|1|	Espiritu, A	|AAS |2|
-|6|	Rana, J	|AAS|1|
-|9|	Burgos, A	|AAS|1|
-|39|	Burnett, M	|ACE|2|
-|43|	Stevens, A	|ACE|2|
-|46|	Stoddard, P	|ACE|2|
-|47|	Lemoine, C	|ACE|1|
-|50|	Ando, A	|ACE|4|
-|52|	Brazee, R	|ACE|4|
-|53|	Ellison, B	|ACE|1|
-|64|	Schnitkey, G |ACE|2|
-|83|	Emmert, J	|ACES|1|
-|84|	Hall, S	|ADV|2|
-|85|	Clifton, D	|ADV|1|                            
-                                
+![image](https://media.github-dev.cs.illinois.edu/user/10922/files/1ab17aa1-be06-4e58-b71f-7b2a7eb723f9)
+                                                          
   **Advanced SQL Queries**
     **#2**    
 
