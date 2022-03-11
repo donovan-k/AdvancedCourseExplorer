@@ -153,7 +153,11 @@ CREATE TABLE Section (
                  -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.002..0.002 rows=1 loops=459)
  </pre>
 
-****asdffdjlksdfkjl****
+> **Explaination**
+> We choose to index on Course(Dept) since this query is finding departments not equal to 'CS' and if it is indexed on departments, 
+> then the finding should work faster. In reality, we did not see much change in finding departments not equal to 'CS'. However,
+> we did notice that aggregation took longer than before (6.687-6.727 vs. 6.085-6.121), and sorting took longer as well (6.782-6.796 vs. 6.177-6.191).
+> Since the index is only on Course(Dept), then grouping and sorting by a different tables ID would take a longer time.
 
   ***Explain and Analyze Results of Query 2 Before Indexing***
   <pre>
