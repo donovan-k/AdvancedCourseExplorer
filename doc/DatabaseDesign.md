@@ -95,6 +95,7 @@ CREATE TABLE Section (
 |83|	Emmert, J	|ACES|1|
 |84|	Hall, S	|ADV|2|
 |85|	Clifton, D	|ADV|1|
+
   ***Explain and Analyze Results of Query 1***
    -> Sort: <temporary>.ID  (actual time=6.177..6.191 rows=204 loops=1)
      -> Table scan on <temporary>  (actual time=0.001..0.024 rows=204 loops=1)
