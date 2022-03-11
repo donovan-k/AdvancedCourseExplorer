@@ -97,6 +97,7 @@ CREATE TABLE Section (
 |85|	Clifton, D	|ADV|1|
 
   ***Explain and Analyze Results of Query 1***
+  <pre>
    -> Sort: <temporary>.ID  (actual time=6.177..6.191 rows=204 loops=1)
      -> Table scan on <temporary>  (actual time=0.001..0.024 rows=204 loops=1)
          -> Aggregate using temporary table  (actual time=6.085..6.121 rows=204 loops=1)
@@ -107,7 +108,7 @@ CREATE TABLE Section (
                      -> Filter: (c.Credits = 3)  (cost=0.41 rows=0) (actual time=0.001..0.001 rows=1 loops=824)
                          -> Single-row index lookup on c using PRIMARY (CourseNumber=s.CourseNumber, Dept=s.Dept)  (cost=0.41 rows=1) (actual time=0.001..0.001 rows=1 loops=824)
                  -> Index lookup on p using PRIMARY (ID=s.ProfessorID)  (cost=0.25 rows=1) (actual time=0.001..0.002 rows=1 loops=459)
-                              
+</pre>                              
                                 
   **Advanced SQL Queries**
     **#2**    
