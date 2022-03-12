@@ -1,7 +1,13 @@
 # Database Design
 
-## Data Definition Language (DDL) commands
+## Database implementation
 
+### Database Implementing database on GCP
+- Hostname: 35.224.176.76:3306
+- Username: root
+- Password: The passcode is provided in the private campuswire groupchat
+
+### Data Definition Language (DDL) commands
 **Course(CourseNumber,Dept,Description,Credits)**
 ```sql
 CREATE TABLE Course (
@@ -63,6 +69,19 @@ CREATE TABLE Section (
     FOREIGN KEY(Dept) REFERENCES Course(Dept) ON DELETE CASCADE
 ); 
 ```
+
+### Row count for each table
+- Course Table (Screenshot)
+![course_count](https://media.github-dev.cs.illinois.edu/user/12652/files/98178db7-e24e-4526-8b01-ae41c286af1d)
+
+- GenEdReq Table (Screenshot)
+![GenEdReq_count](https://media.github-dev.cs.illinois.edu/user/12652/files/27f332b8-0cff-48f0-af0b-55b48506c2b7)
+
+- Professor Table (Screenshot)
+![professor_count](https://media.github-dev.cs.illinois.edu/user/12652/files/1f4d97ab-0e14-43a6-a802-76795cd438de)
+
+- Section Table (Screenshot)
+![section_count](https://media.github-dev.cs.illinois.edu/user/12652/files/14267a83-ece7-4f06-a257-36b99330e9df)
 
 ## Advanced SQL queries
   
