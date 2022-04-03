@@ -1,0 +1,12 @@
+.section-page table {
+    border-collapse: 'collapse';
+}
+
+.section-page td, th {
+    padding: 8px;
+    margin: 0,
+}
+
+.section-page tr:nth-child(even) {
+    background: lightgray;
+}

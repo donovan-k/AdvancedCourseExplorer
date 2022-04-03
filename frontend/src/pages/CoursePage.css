@@ -1,0 +1,17 @@
+.course-page table {
+    border-collapse: 'collapse';
+}
+
+.course-page td, th {
+    padding: 8px;
+    margin: 0,
+}
+
+.course-page tr:nth-child(even) {
+    background: lightgray;
+}
+
+.course-page tr:hover {
+    background-color: gray;
+    cursor: pointer;
+}
