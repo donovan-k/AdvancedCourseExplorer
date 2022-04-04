@@ -22,8 +22,8 @@ export const CoursePage = () => {
                         // make sure naming of these keys is the same as backend
                         // will say undefined otherwise
                         <tr onClick={() => navigate('/sections', { state: { course }})} key={course.course_id}>
-                            <td>{course.course_id}</td>
-                            <td>{course.coursenumber}</td>
+                            <td>{course.courseId}</td>
+                            <td>{course.courseNum}</td>
                             <td>{course.dept}</td>
                             <td>{course.description}</td>
                             <td>{course.credits}</td>

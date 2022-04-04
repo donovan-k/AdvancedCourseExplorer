@@ -2,16 +2,15 @@ import {useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-/*const fakeCourses = [
-    { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
-    { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
-    { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
-    { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
-    { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
-    { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
-    { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
-]
-*/
+// const fakeCourses = [
+//     { courseId: '1', courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
+//     { courseId: '1', courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
+//     { courseId: '1', courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
+//     { courseId: '1', courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
+//     { courseId: '1', courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
+//     { courseId: '1', courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
+//     { courseId: '1', courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
+// ]
 
 export const UserInputPage = () => {
     const [id, setId] = useState('');
@@ -34,7 +33,7 @@ export const UserInputPage = () => {
 
         console.log(data);
 
-        // Make api call
+        //Make api call
         let got_course;
         await axios.get('/api/courses/')
             .then(res => {
