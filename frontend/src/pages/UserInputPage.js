@@ -1,7 +1,8 @@
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const fakeCourses = [
+/*const fakeCourses = [
     { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
     { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
     { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
@@ -10,19 +11,18 @@ const fakeCourses = [
     { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
     { courseNum: '411', dept: 'CS', description: 'Database Systems', credits: '4' },
 ]
+*/
 
 export const UserInputPage = () => {
-
     const [id, setId] = useState('');
     const [username, setUsername] = useState('');
     const [interests, setInterests] = useState('');
     const [avgGpa, setAvgGpa] = useState('');
     const [favoriteProfessor, setFavoriteProfessor] = useState('');
     const [courseReq, setCourseReq] = useState('');
-
     const navigate = useNavigate();
 
-    const handleSearch = () => {
+    const handleSearch = async () => {
         const data = {
             id,
             username,
@@ -35,10 +35,21 @@ export const UserInputPage = () => {
         console.log(data);
 
         // Make api call
+        let got_course;
+        await axios.get('/api/courses/')
+            .then(res => {
+                console.log(res.data);
+                got_course = res.data;
+            }).catch(err => {
+            });
 
-        navigate('/courses', { state: {
-            courses: fakeCourses
-        } })
+        console.log(got_course)
+
+        navigate('/courses', {
+            state: {
+                courses: got_course
+            }
+        })
     }
 
     return (
