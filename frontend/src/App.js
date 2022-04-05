@@ -5,6 +5,7 @@ import { Navbar } from './components/Navbar';
 import { UserInputPage } from './pages/UserInputPage';
 import { CoursePage } from './pages/CoursePage';
 import { SectionPage } from './pages/SectionPage';
+import { CoolQueriesPage } from "./pages/CoolQueries";
 import {useState, useEffect} from "react";
 import axios from "axios";
 
@@ -38,6 +39,7 @@ function App() {
                 <Route path="search" element={<UserInputPage />} />
                 <Route path="courses" element={<CoursePage />} />
                 <Route path="sections" element={<SectionPage />} />
+                <Route path="coolqueries" element={<CoolQueriesPage />} />
             </Routes>
           </Fragment>
             <h2 style={{ margin: 'auto', textAlign: 'center'}}>History Of User Inputs</h2>

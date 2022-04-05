@@ -4,7 +4,7 @@
 
 .course-page td, th {
     padding: 8px;
-    margin: 0,
+    margin: 0;
 }
 
 .course-page tr:nth-child(even) {
