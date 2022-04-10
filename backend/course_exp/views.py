@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, views
 from rest_framework.response import Response
@@ -50,7 +50,7 @@ class AdvancedQuery1View(views.APIView):
             cursor.execute(query)
             cursor.fetchone()
             json_data = dictfetchall(cursor)
-            return HttpResponse(json_data, content_type="application/json")
+            return JsonResponse(json_data, safe=False)
 
 
 class AdvancedQuery2View(views.APIView):
@@ -67,7 +67,7 @@ class AdvancedQuery2View(views.APIView):
             cursor.execute(query)
             cursor.fetchone()
             json_data = dictfetchall(cursor)
-            return HttpResponse(json_data, content_type="application/json")
+            return JsonResponse(json_data, safe=False)
 
 
 def dictfetchall(cursor):
