@@ -43,7 +43,8 @@ export const UserInputPage = () => {
     if (typeof state === undefined || state === null) {
         if (inputs.length !== 0) {
             userInput = inputs[1]
-        }} else {
+        }
+    } else {
         userInput = state.user_input
     }
 
