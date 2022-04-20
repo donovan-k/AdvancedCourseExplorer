@@ -1,12 +1,16 @@
 import { Fragment } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-
 import { Navbar } from './components/Navbar';
 import { UserInputPage } from './pages/UserInputPage';
 import { CoursePage } from './pages/CoursePage';
 import { SectionPage } from './pages/SectionPage';
+import { CoolQueriesPage } from "./pages/CoolQueries";
+import { ResultsPage } from "./pages/ResultsPage";
+import { LoginInPage } from "./pages/LoginInPage";
 import {useState, useEffect} from "react";
 import axios from "axios";
+
+import './pages/CoursePage.css';
 
 function App() {
 
@@ -19,8 +23,9 @@ function App() {
 
   useEffect( () => {
       const fetchData = async () => {
-          axios.get('/api/userinputs/')
-            .then(res => {
+          let updated_inputs = []
+          await axios.get('/api/userinputs/')
+            .then(async res => {
                 console.log(res.data);
                 setInputs(res.data);
             }).catch(err => {
@@ -38,10 +43,13 @@ function App() {
                 <Route path="search" element={<UserInputPage />} />
                 <Route path="courses" element={<CoursePage />} />
                 <Route path="sections" element={<SectionPage />} />
+                <Route path="coolqueries" element={<CoolQueriesPage />} />
+                <Route path="results"  element={<ResultsPage />} />
+                <Route path="login" element={<LoginInPage />} />
             </Routes>
           </Fragment>
-            <h2 style={{ margin: 'auto', textAlign: 'center'}}>History Of User Inputs</h2>
-          <table style={{ margin: 'auto'}}>
+          <h2 style={{ margin: 'auto', textAlign: 'center'}}>History Of User Inputs</h2>
+          <table style={{ margin: 'auto'}} className="course-page">
                  <tr>
                     <th>ID</th>
                     <th>Username</th>
@@ -64,7 +72,6 @@ function App() {
                     ))}
             </table>
       </div>
-
   );
 }
 
