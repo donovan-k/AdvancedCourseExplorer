@@ -67,8 +67,6 @@ class StoredProdView(viewsets.ModelViewSet):
 
     def results(request):
 
-        filtered = CourseView.get_queryset(request)
-
         stored_prod = """
         CREATE procedure help_student
         BEGIN
