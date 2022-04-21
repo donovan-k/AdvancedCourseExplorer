@@ -62,6 +62,42 @@ class AdvancedQuery2View(viewsets.ModelViewSet):
             return row
 
 
+class StoredProdView(viewsets.ModelViewSet):
+    serializer_class = CourseSerializer
+
+    def results(request):
+
+        filtered = CourseView.get_queryset(request)
+
+        ##Trying to decide if need a where clause or if it is more plausible to filter beforehand
+        query_one = """
+        SELECT Course.*, Section.*, AVG(Section.avggpa) AS CourseAvgGPA
+        FROM Course JOIN Section USING (Course.coursenumber = Section.coursenumber AND Course.dept = Section.Dept)
+        GROUP BY Course
+        ORDER BY CourseAvgGPA DESC
+        """
+
+        #Need to figure out how to get the user input and identify what course we are using (probably between queries in
+        #outer call to function?)
+        query_two = """
+        SELECT Section.*, COUNT(Section.sectionid) AS TotalSectionsWithProfessor
+        FROM Course NATURAL JOIN Section JOIN Professor USING (Section.professor = Professor.id)
+        GROUP BY Section, Professor
+        ORDER BY Section.avggpa DESC
+        """
+        ##filtered.execute(query_one)
+        ##filtered.execute(query_two)
+
+        #with connection.cursor() as cursor:
+        #    cursor.execute(query_one)
+        #    row = cursor.fetchone()
+        #    cursor = row
+        #    cursor.execute(query_two)
+        #    row_2 = cursor.fetchone()
+        #    return row_2
+
+
+
 class GenedreqView(viewsets.ModelViewSet):
     serializer_class = GenedreqSerializer
     queryset = Genedreq.objects.all()
