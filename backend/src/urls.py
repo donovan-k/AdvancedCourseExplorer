@@ -32,5 +32,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/coolq1/', views.AdvancedQuery1View.as_view(), name='coolq1'),
-    path('api/coolq2/', views.AdvancedQuery2View.as_view(), name='coolq2')
+    path('api/coolq2/', views.AdvancedQuery2View.as_view(), name='coolq2'),
+    path('api/helpingstudents/', views.StoredProdView.as_view(), name='helping students')
 ]
