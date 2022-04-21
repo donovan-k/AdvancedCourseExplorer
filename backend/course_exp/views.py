@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets
+from django.http import HttpResponse, JsonResponse
+from rest_framework import viewsets, views
 from django.db import connection
 from .serializers import CourseSerializer, GenedreqSerializer, ProfessorSerializer,  SectionSerializer, \
     UserInfoSerializer, UserInputSerializer
@@ -27,46 +28,40 @@ class CourseView(viewsets.ModelViewSet):
         return course
 
 
-class AdvancedQuery1View(viewsets.ModelViewSet):
-    serializer_class = CourseSerializer
-
-    def results(request):
+class AdvancedQuery1View(views.APIView):
+    def get(self, request):
         query = """
-        SELECT p.id, p.name, p.dept, count(p.id)
-        FROM Course c NATURAL JOIN Section s Join Professor p ON (p.id = s.professorid)
-        WHERE c.credits == 3 AND c.dept != 'CS' AND s.avggpa >= 3.5
-        GROUP BY s.professorid
-        ORDER BY p.id
-        """
+                SELECT p.id, p.name, p.dept, count(p.id)
+                FROM Course c NATURAL JOIN Section s Join Professor p ON (p.id = s.professorid)
+                WHERE c.credits = 3 AND c.dept != 'CS' AND s.avggpa >= 3.5
+                GROUP BY s.professorid
+                ORDER BY p.id
+                """
         with connection.cursor() as cursor:
             cursor.execute(query)
-            row = cursor.fetchone()
-            return row
+            cursor.fetchone()
+            json_data = dictfetchall(cursor)
+            return JsonResponse(json_data, safe=False)
 
 
-class AdvancedQuery2View(viewsets.ModelViewSet):
-    serializer_class = CourseSerializer
-
-    def results(request):
-
+class AdvancedQuery2View(views.APIView):
+    def get(self, request):
         query = """
         SELECT g.title, g.dept, count(s.sectionid)
-        FROM Course c NATURAL JOIN Genedreq g JOIN Section s ON (c.coursenumber == s.coursenumber AND c.dept == s.dept)
-        WHERE g.cs == 'US' AND s.avggpa >= 3.5
+        FROM Course c NATURAL JOIN GenEdReq g JOIN Section s ON (c.coursenumber = s.coursenumber AND c.dept = s.dept)
+        WHERE g.cs = 'US' AND s.avggpa >= 3.5
         GROUP BY g.coursenumber, g.dept
         ORDER BY g.dept
         """
         with connection.cursor() as cursor:
             cursor.execute(query)
-            row = cursor.fetchone()
-            return row
+            cursor.fetchone()
+            json_data = dictfetchall(cursor)
+            return JsonResponse(json_data, safe=False)
 
 
-class StoredProdView(viewsets.ModelViewSet):
-    serializer_class = CourseSerializer
-
-    def results(request):
-
+class StoredProdView(views.APIView):
+    def get(self, request):
         stored_prod = """
         CREATE procedure help_student
         BEGIN
@@ -103,9 +98,18 @@ class StoredProdView(viewsets.ModelViewSet):
 
         with connection.cursor() as cursor:
             cursor.execute(stored_prod)
-            row = cursor.fetchone()
-            return row
+            cursor.fetchone()
+            json_data = dictfetchall(cursor)
+            return JsonResponse(json_data, safe=False)
 
+
+def dictfetchall(cursor):
+    """Return all rows from a cursor as a dict"""
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
 
 
 class GenedreqView(viewsets.ModelViewSet):
