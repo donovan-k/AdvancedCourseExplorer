@@ -11,10 +11,13 @@
 **Course(CourseNumber,Dept,Description,Credits)**
 ```sql
 CREATE TABLE Course (
+  course_id int(11) NOT NULL AUTO_INCREMENT,
   CourseNumber int(11) NOT NULL,
   Dept varchar(30) NOT NULL,
   Description varchar(255),
   Credits int(11),
+  AvgGPA float DEFAULT NULL,
+  UNIQUE KEY (courseID),
   PRIMARY KEY (CourseNumber,Dept),
   KEY CourseNumber (CourseNumber),
   KEY Dept (Dept)
@@ -24,6 +27,7 @@ CREATE TABLE Course (
 **GenEdReq(CourseNumber,Dept,YearTerm,Title,ACP,CS,HUM,NAT,QR,SBS)**
 ```sql
 CREATE TABLE GenEdReq (
+  id int(11) NOT NULL AUTO_INCREMENT,
   CourseNumber int(11) NOT NULL,
   Dept varchar(30) NOT NULL,
   YearTerm varchar(255) NOT NULL,
@@ -35,6 +39,7 @@ CREATE TABLE GenEdReq (
   QR varchar(30),
   SBS varchar(30),
   PRIMARY KEY (CourseNumber,Dept,YearTerm),
+  UNIQUE KEY (id),
   KEY Dept (Dept),
   KEY YearTerm (YearTerm),
   FOREIGN KEY (CourseNumber) REFERENCES Course (CourseNumber) ON DELETE CASCADE,
