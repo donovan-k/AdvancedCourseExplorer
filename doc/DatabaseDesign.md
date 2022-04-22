@@ -100,6 +100,60 @@ CREATE TABLE Section (
   
 ![image](https://media.github-dev.cs.illinois.edu/user/10922/files/a78efbfe-cbbe-4f2b-86c0-dc7cb7426f3e)
 
+## Avg GPA Stored Procedure and Triggers DDL
+
+**Stored Procedure to populate course AvgGPA column for all entries**
+
+```sql
+CREATE PROCEDURE SetAvgGPA()
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE coursenum INT;
+    DECLARE coursedept VARCHAR(30);
+    DECLARE coursecur CURSOR FOR SELECT DISTINCT CourseNumber, Dept FROM Section;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    OPEN coursecur;
+    REPEAT
+        FETCH NEXT FROM coursecur INTO coursenum, coursedept;
+        UPDATE Course 
+        SET AvgGPA = 
+        (
+        SELECT AVG(Cast(AvgGPA as float)) as averageGPA
+        FROM Section
+        WHERE AvgGPA != 0 AND CourseNumber = coursenum AND Dept = coursedept
+        )
+        WHERE CourseNumber = coursenum AND Dept = coursedept;
+    UNTIL done
+    END REPEAT;
+
+    CLOSE coursecur;
+END; 
+```
+
+**Trigger to update AvgGPA for courses when columns are added and/or removed**
+
+(I created one for update, one for insert, and one for delete, but they are mostly identical)
+
+```sql
+CREATE TRIGGER UpdateAvgGPA
+AFTER UPDATE ON Section
+    FOR EACH ROW
+BEGIN
+    DECLARE coursenum int;
+    DECLARE coursedept varchar(30);
+    SELECT CourseNumber, Dept 
+    INTO coursenum, coursedept
+    WHERE (CourseNumber = old.CourseNumber AND Dept = old.Dept) OR (CourseNumber = new.CourseNumber AND Dept = new.Dept);
+    IF coursenum IS NOT NULL THEN
+        UPDATE Course
+        SET AvgGPA = (
+        SELECT AVG(Cast(AvgGPA as float)) as averageGPA
+        FROM Section
+        WHERE CourseNumber = coursenum AND Dept = coursedept
+        );
+    END IF;
+END;
+```
   
 ## Indexing Analysis
 
