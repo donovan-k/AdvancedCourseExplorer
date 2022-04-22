@@ -132,8 +132,6 @@ END;
 
 **Trigger to update AvgGPA for courses when columns are added and/or removed**
 
-(I created one for update, one for insert, and one for delete, but they are mostly identical)
-
 ```sql
 CREATE TRIGGER UpdateAvgGPA
 AFTER UPDATE ON Section
