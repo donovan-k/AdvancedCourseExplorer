@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { UserInputPage } from './pages/UserInputPage';
-import { CoursePage } from './pages/CoursePage';
 import { SectionPage } from './pages/SectionPage';
 import { CoolQueriesPage } from "./pages/CoolQueries";
 import { ResultsPage } from "./pages/ResultsPage";
@@ -41,7 +40,6 @@ function App() {
             {shouldShowNavbar() && <Navbar />}
             <Routes>
                 <Route path="search" element={<UserInputPage />} />
-                <Route path="courses" element={<CoursePage />} />
                 <Route path="sections" element={<SectionPage />} />
                 <Route path="coolqueries" element={<CoolQueriesPage />} />
                 <Route path="results"  element={<ResultsPage />} />

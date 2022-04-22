@@ -79,17 +79,22 @@ export const UserInputPage = () => {
         const data = data_global;
         const jsonData = json_global;
 
-        let got_course;
+        let results_;
         let all_user_inputs;
 
         // sends a get to the backend, parameters are in sent into params
         // check django views to see how they are used
         // gets courses that have a description containing any interests
-        await axios.get('/api/courses/', { params : {containsTerm : interests}})
+        await axios.get('api/findcourse/', { params : {
+                                                                    'fav_professor': favoriteProfessor,
+                                                                    'gpa_req': avgGpa,
+                                                                    'course_req': courseReq,
+                                                                    'containsTerm': interests
+                                                                }})
             .then(res => {
                 console.log(res.data);
-                got_course = res.data;
-                console.log(typeof got_course);
+                results_ = res.data;
+                console.log(results_);
             }).catch(err => console.log(err));
 
         // logs each input into userinput database
@@ -117,10 +122,10 @@ export const UserInputPage = () => {
             await axios.post('api/userinputs/', jsonData).catch(err => console.log(err));
         }
 
-        // move to course's page
-        navigate('/courses', {
+        // move to results's page
+        navigate('/results', {
             state: {
-                courses: got_course
+                results: results_
             }
         })
     }
@@ -179,7 +184,7 @@ export const UserInputPage = () => {
 
             <button style={{width: '100px', margin: 'auto'}} onClick={handleDelete}>Delete</button>
 
-            <p style={{fontSize : "small"}}>*For multiple interests, separate each by ';'</p>
+            {/*<p style={{fontSize : "small"}}>*For multiple interests, separate each by ';'</p>*/}
 
         </div>
     )

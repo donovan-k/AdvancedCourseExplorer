@@ -62,42 +62,23 @@ class AdvancedQuery2View(views.APIView):
 
 class StoredProdView(views.APIView):
     def get(self, request):
-        stored_prod = """
-        CREATE procedure help_student
-        BEGIN
-            SELECT Course.*, Section.*, AVG(Section.avggpa) AS CourseAvgGPA
-            FROM Course JOIN Section USING (Course.coursenumber = Section.coursenumber AND Course.dept = Section.Dept)
-            GROUP BY Course
-            ORDER BY CourseAvgGPA DESC
-            
-            SELECT Section.*, COUNT(Section.sectionid) AS TotalSectionsWithProfessor
-            FROM Course NATURAL JOIN Section JOIN Professor USING (Section.professor = Professor.id)
-            GROUP BY Section, Professor
-            ORDER BY Section.avggpa DESC
-        END;
-        """
-
-        ##Trying to decide if need a where clause or if it is more plausible to filter beforehand
-        #query_one = """
-        #SELECT Course.*, Section.*, AVG(Section.avggpa) AS CourseAvgGPA
-        #FROM Course JOIN Section USING (Course.coursenumber = Section.coursenumber AND Course.dept = Section.Dept)
-        #GROUP BY Course
-        #ORDER BY CourseAvgGPA DESC
-        #"""
-
-        #Need to figure out how to get the user input and identify what course we are using (probably between queries in
-        #outer call to function?)
-        #query_two = """
-        #SELECT Section.*, COUNT(Section.sectionid) AS TotalSectionsWithProfessor
-        #FROM Course NATURAL JOIN Section JOIN Professor USING (Section.professor = Professor.id)
-        #GROUP BY Section, Professor
-        #ORDER BY Section.avggpa DESC
-        #"""
-        ##filtered.execute(query_one)
-        ##filtered.execute(query_two)
+        if isinstance(request.query_params['gpa_req'], str):
+            f = 0.00
+        else:
+            f = float(request.query_params['gpa_req'])
+        # if request has gpa greater than 0.00, use query to find courses with that gpa or higher
+        # if request has a professor input, use query to find courses with that professor
+        # if request has a course requirement, use query to find courses with that course requirement fufilled
+        dict_of_params = {
+            'fav_professor': request.query_params['fav_professor'],
+            'gpa_req': f,
+            'course_req': request.query_params['course_req'],
+            'containsTerm': request.query_params['containsTerm']
+        }
 
         with connection.cursor() as cursor:
-            cursor.execute(stored_prod)
+            cursor.callproc('filter_courses', (dict_of_params['fav_professor'], dict_of_params['gpa_req'],
+                                               dict_of_params['course_req'], dict_of_params['containsTerm']))
             cursor.fetchone()
             json_data = dictfetchall(cursor)
             return JsonResponse(json_data, safe=False)

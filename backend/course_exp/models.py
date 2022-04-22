@@ -8,6 +8,7 @@ class Course(models.Model):
     dept = models.CharField(db_column='Dept', max_length=30)  # Field name made lowercase.
     description = models.CharField(db_column='Description', max_length=255, blank=True, null=True)  # Field name made lowercase.
     credits = models.IntegerField(db_column='Credits', blank=True, null=True)  # Field name made lowercase.
+    avggpa = models.DecimalField(db_column='AvgGPA', max_digits=4, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -47,11 +48,11 @@ class Professor(models.Model):
 class Section(models.Model):
     sectionid = models.IntegerField(db_column='SectionID', primary_key=True)  # Field name made lowercase.
     professorid = models.ForeignKey(Professor, on_delete=models.CASCADE, db_column='ProfessorID', blank=True, null=True)  # Field name made lowercase.
-    professors = models.CharField(db_column='Professors', max_length=1000, blank=True, null=True)  # Field name made lowercase.
+    professors = models.CharField(db_column='Professors', max_length=255, blank=True, null=True)  # Field name made lowercase.
     coursenumber = models.IntegerField(db_column='CourseNumber', blank=True, null=True)  # Field name made lowercase.
     dept = models.CharField(db_column='Dept', max_length=30, blank=True, null=True)  # Field name made lowercase.
     yearterm = models.CharField(db_column='YearTerm', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    avggpa = models.CharField(db_column='AvgGPA', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    avggpa = models.DecimalField(db_column='AvgGPA', max_digits=4, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -139,10 +140,10 @@ class UserInfo(models.Model):
 class UserInput(models.Model):
     id = models.PositiveIntegerField(db_column='ID', primary_key=True)  # Field name made lowercase.
     username = models.ForeignKey(UserInfo, on_delete=models.CASCADE)
-    avg_gpa = models.DecimalField(max_digits=5, decimal_places=2)
-    course_req = models.CharField(max_length=10)
-    fav_professor = models.CharField(max_length=255)
-    interests = models.CharField(max_length=255)
+    avg_gpa = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
+    course_req = models.CharField(max_length=10, blank=True)
+    fav_professor = models.CharField(max_length=255, blank=True)
+    interests = models.CharField(max_length=255, blank=True)
 
     class Meta:
         managed = False
