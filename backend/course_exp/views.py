@@ -5,6 +5,13 @@ from django.db import connection
 from .serializers import CourseSerializer, GenedreqSerializer, ProfessorSerializer,  SectionSerializer, \
     UserInfoSerializer, UserInputSerializer
 from .models import Course, Genedreq, Professor, Section, UserInfo, UserInput
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
 
 
 # Create your views here.
@@ -111,8 +118,10 @@ class SectionView(viewsets.ModelViewSet):
 class UserInfoView(viewsets.ModelViewSet):
     serializer_class = UserInfoSerializer
     queryset = UserInfo.objects.all()
+    authentication_classes = (CsrfExemptSessionAuthentication, TokenAuthentication)
 
 
 class UserInputView(viewsets.ModelViewSet):
     serializer_class = UserInputSerializer
     queryset = UserInput.objects.all()
+    authentication_classes = (CsrfExemptSessionAuthentication, TokenAuthentication)

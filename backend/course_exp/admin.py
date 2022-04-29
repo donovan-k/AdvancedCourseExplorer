@@ -8,7 +8,7 @@ from .models import UserInfo
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('course_id', 'coursenumber', 'dept', 'description', 'credits')
+    list_display = ('course_id', 'coursenumber', 'dept', 'description', 'credits', 'avggpa')
 
 
 class GenedreqAdmin(admin.ModelAdmin):
