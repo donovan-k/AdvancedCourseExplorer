@@ -1,5 +1,6 @@
 # Project Report and Demo Video
 
+## Reflection Report
 ### Please list out changes in directions of your project if the final project is different from your original proposal (based on your stage 1 proposal submission).
 The main direction of our project remains the same, which means there are no big changes on the concepts. On stage 1 we stated that we wanted to create an upgraded version of UIUC Course Explorer, and we did make it. Just as what we have described in stage 1, we have fully built out all functionalities based on our updated version ideas: students can filter out all the courses offered by UIUC by Professor, requirements, professors, etc.
 
@@ -36,6 +37,7 @@ In the future, we could possibly make the advanced queries more interesting and 
 - Backend: Donovan
 - Frontend: Jocelyn
 - Advanced queries: Colin
-- Triggers and stored procedures: Colin and Eric
+- Triggers and stored procedures: Colin and Eric  
 We first discussed our personal preferences and interests about the project along with availability throughout the semester. People who have previous knowledge of a certain part would voluntarily start the part he/she is familiar with. When there is any part that nobody is familiar with, we communicate and do research online to learn more about how to implement.
 
+## Demo Video
